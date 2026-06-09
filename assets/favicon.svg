@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="16" fill="#2a1d16"/>
+  <!-- stylised orchid / lotus mark in terracotta + gold -->
+  <g fill="none" stroke="#bd6a40" stroke-width="3" stroke-linecap="round">
+    <path d="M32 50 C20 42 18 28 32 16 C46 28 44 42 32 50 Z"/>
+    <path d="M32 50 C24 40 26 30 32 24"/>
+  </g>
+  <circle cx="32" cy="33" r="4.5" fill="#cda04f"/>
+</svg>

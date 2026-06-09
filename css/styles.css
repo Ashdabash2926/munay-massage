@@ -1,0 +1,223 @@
+/* ============================================================
+   Munay · Holistic Massage — Sacred Valley
+   Design system: "Earthen Sanctuary"
+   Warm terracotta / cream / cocoa · Fraunces + Barlow + Vazirmatn
+   ============================================================ */
+
+:root {
+  /* palette */
+  --clay:        #bd6a40;   /* terracotta accent */
+  --clay-dark:   #9c5230;
+  --clay-light:  #d68a60;
+  --gold:        #cda04f;   /* muted Andean gold */
+  --gold-soft:   #e6c98a;
+  --cream:       #f7f0e6;   /* page background */
+  --cream-2:     #efe3d3;
+  --cream-3:     #e7d7c2;
+  --cocoa:       #2a1d16;   /* deep feature sections */
+  --cocoa-2:     #3a2920;
+  --cocoa-3:     #4a362a;
+  --sage:        #8a8c6f;   /* botanical accent */
+
+  /* semantic */
+  --text:        #2a1d16;
+  --text-soft:   #5d4a3c;
+  --muted:       #8a7563;
+  --text-inv:    #f7f0e6;
+  --muted-inv:   #c9b4a0;
+  --border:      #e0cdb6;
+  --border-inv:  rgba(247,240,230,.16);
+  --ring:        var(--clay);
+
+  /* type */
+  --serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Barlow', system-ui, -apple-system, sans-serif;
+  --fa:    'Vazirmatn', 'Barlow', system-ui, sans-serif;
+
+  /* depth (Soft UI Evolution) */
+  --shadow-sm: 0 1px 2px rgba(42,29,22,.06), 0 2px 6px rgba(42,29,22,.05);
+  --shadow:    0 6px 18px -6px rgba(42,29,22,.18), 0 2px 6px rgba(42,29,22,.06);
+  --shadow-lg: 0 30px 60px -24px rgba(42,29,22,.34), 0 8px 24px -12px rgba(42,29,22,.18);
+
+  /* motion */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --t:    .28s var(--ease);
+
+  --maxw: 1180px;
+  --nav-h: 76px;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+::selection { background: var(--clay); color: #fff; }
+
+/* ---------- type ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  font-optical-sizing: auto;
+}
+.italic-accent { font-style: italic; color: var(--clay); }
+html[lang="fa"] body,
+html[lang="fa"] h1, html[lang="fa"] h2,
+html[lang="fa"] h3, html[lang="fa"] h4 { font-family: var(--fa); }
+html[lang="fa"] .italic-accent { font-style: normal; } /* Vazirmatn has no true italic */
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: .72rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--clay);
+}
+html[lang="fa"] .eyebrow { letter-spacing: 0; }
+
+/* ---------- layout helpers ---------- */
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 1.5rem; }
+.section { padding-block: clamp(4rem, 10vw, 8rem); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .85rem 1.6rem; border-radius: 999px;
+  font-weight: 600; font-size: .9rem; letter-spacing: .02em;
+  transition: transform var(--t), box-shadow var(--t), background var(--t), color var(--t);
+  will-change: transform;
+}
+.btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+.btn-primary { background: var(--clay); color: #fff; box-shadow: var(--shadow); }
+.btn-primary:hover { background: var(--clay-dark); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.btn-ghost { border: 1px solid var(--border); color: var(--text); }
+.btn-ghost:hover { background: var(--cream-2); transform: translateY(-2px); }
+.btn-on-dark { border: 1px solid var(--border-inv); color: var(--text-inv); }
+.btn-on-dark:hover { background: rgba(247,240,230,.08); transform: translateY(-2px); }
+.btn .arrow { transition: transform var(--t); }
+.btn:hover .arrow { transform: translateX(3px); }
+[dir="rtl"] .btn:hover .arrow { transform: translateX(-3px); }
+[dir="rtl"] .btn .arrow { transform: scaleX(-1); }
+
+a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- texture / atmosphere ---------- */
+.grain::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  opacity: .055; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.bg-cocoa { background: var(--cocoa); color: var(--text-inv); position: relative; }
+.bg-cream2 { background: var(--cream-2); }
+
+/* ---------- navbar ---------- */
+#navbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 1000;
+  transition: background var(--t), box-shadow var(--t), backdrop-filter var(--t);
+}
+#navbar.scrolled {
+  background: rgba(247,240,230,.86);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1.5px;
+  background: var(--clay); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t);
+}
+[dir="rtl"] .nav-link::after { transform-origin: right; }
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.nav-link.active { color: var(--clay); }
+
+.lang-btn { transition: color var(--t), background var(--t); border-radius: 999px; }
+.lang-btn[aria-pressed="true"] { background: var(--clay); color: #fff; }
+.lang-btn:not([aria-pressed="true"]):hover { color: var(--clay); }
+
+/* ---------- cards ---------- */
+.card {
+  background: #fff; border-radius: 18px; overflow: hidden;
+  box-shadow: var(--shadow); transition: transform var(--t), box-shadow var(--t);
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.card-media { position: relative; overflow: hidden; aspect-ratio: 4/3; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.card:hover .card-media img { transform: scale(1.06); }
+
+/* ---------- parallax ---------- */
+.parallax { position: relative; overflow: hidden; }
+.parallax__img {
+  position: absolute; inset: -14% 0; width: 100%; height: 128%;
+  object-fit: cover; will-change: transform; z-index: 0;
+}
+@supports (animation-timeline: view()) {
+  .parallax__img {
+    animation: parallax-rise linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes parallax-rise {
+    from { transform: translateY(-9%); }
+    to   { transform: translateY(9%); }
+  }
+}
+
+/* hero "breathing" float — the munay heart-energy beat */
+.float-slow { animation: float-slow 9s ease-in-out infinite; }
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(.6deg); }
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .08s; }
+.reveal-d2 { transition-delay: .16s; }
+.reveal-d3 { transition-delay: .24s; }
+
+/* ---------- divider motif (Andean textile dashes) ---------- */
+.motif { display: flex; align-items: center; gap: .5rem; color: var(--clay); }
+.motif::before, .motif::after {
+  content: ""; height: 1px; flex: 1 1 40px; max-width: 60px;
+  background: linear-gradient(to right, transparent, currentColor);
+}
+.motif::after { transform: scaleX(-1); }
+
+/* ---------- forms ---------- */
+.field {
+  width: 100%; padding: .9rem 1.1rem; border: 1px solid var(--border);
+  border-radius: 12px; background: #fff; color: var(--text);
+  transition: border var(--t), box-shadow var(--t);
+}
+.field::placeholder { color: var(--muted); }
+.field:focus { outline: none; border-color: var(--clay); box-shadow: 0 0 0 3px rgba(189,106,64,.18); }
+
+/* ---------- RTL niceties ---------- */
+[dir="rtl"] .motif::after { transform: none; }
+[dir="rtl"] .motif::before { transform: scaleX(-1); }
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .parallax__img { animation: none !important; transform: none !important; }
+  .float-slow { animation: none !important; }
+}
