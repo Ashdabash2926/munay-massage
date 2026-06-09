@@ -136,6 +136,19 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   box-shadow: 0 1px 0 var(--border);
 }
+/* At top, navbar sits over a dark hero → light text.
+   Once scrolled, it has a cream background → dark text.
+   (.btn keeps its own colours and is intentionally excluded.) */
+#navbar .brand,
+#navbar .nav-link,
+#navbar #navToggle,
+#navbar .lang-btn:not([aria-pressed="true"]) { color: var(--text-inv); }
+#navbar .lang-wrap { border-color: var(--border-inv); }
+#navbar.scrolled .brand,
+#navbar.scrolled .nav-link,
+#navbar.scrolled #navToggle,
+#navbar.scrolled .lang-btn:not([aria-pressed="true"]) { color: var(--text); }
+#navbar.scrolled .lang-wrap { border-color: var(--border); }
 .nav-link { position: relative; }
 .nav-link::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1.5px;

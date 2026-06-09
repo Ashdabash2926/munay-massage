@@ -22,8 +22,9 @@
       `<a href="${href}" data-i18n="nav.${k}" class="nav-link ${extra} ${k === PAGE ? "active" : ""}">${k}</a>`
     ).join("");
 
+  const LABELS = { en: "EN", es: "ES", fa: "فا" };
   const langButtons = ["en", "es", "fa"]
-    .map(l => `<button class="lang-btn px-3 py-1 text-xs font-semibold uppercase tracking-wide" data-lang="${l}" data-i18n="lang.label">${l}</button>`)
+    .map(l => `<button class="lang-btn px-3 py-1 text-xs font-semibold uppercase tracking-wide" data-lang="${l}" lang="${l}" aria-label="${l}">${LABELS[l]}</button>`)
     .join("");
 
   /* ---------- skip link ---------- */
@@ -42,7 +43,7 @@
   document.getElementById("site-nav").innerHTML = `
     <nav id="navbar">
       <div class="wrap flex items-center justify-between" style="height:var(--nav-h)">
-        <a href="index.html" class="flex items-center gap-2" aria-label="Munay home">
+        <a href="index.html" class="brand flex items-center gap-2" aria-label="Munay home">
           <img src="assets/favicon.svg" alt="" width="34" height="34" />
           <span style="font-family:var(--serif);font-size:1.55rem;letter-spacing:.01em">Munay</span>
         </a>
@@ -52,7 +53,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <div class="flex items-center rounded-full border border-[color:var(--border)] p-0.5">
+          <div class="lang-wrap flex items-center rounded-full border p-0.5">
             ${langButtons}
           </div>
           <a href="contact.html" data-i18n="cta.book" class="btn btn-primary hidden sm:inline-flex" style="padding:.6rem 1.2rem">Book Now</a>
