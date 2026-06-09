@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact · Munay — Holistic Massage, Sacred Valley</title>
+  <meta name="description" content="Reserve a holistic massage in Písac, Sacred Valley. Find our location, hours and WhatsApp, or send us a message." />
+  <meta property="og:title" content="Contact · Munay Holistic Massage" />
+  <meta property="og:description" content="Come and rest — reserve a session in Písac, Sacred Valley, Cusco." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Vazirmatn:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-page="contact">
+  <div id="site-nav"></div>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="bg-cocoa grain" style="position:relative">
+      <div class="wrap relative text-center" style="z-index:2;padding-top:calc(var(--nav-h) + 4rem);padding-bottom:clamp(3rem,7vw,5rem)">
+        <p class="eyebrow reveal" style="color:var(--gold-soft)" data-i18n="ct.hero.eyebrow">Get in touch</p>
+        <h1 class="reveal reveal-d1 mt-4" style="color:var(--text-inv);font-size:clamp(2.8rem,7vw,5rem)" data-i18n="ct.hero.title">Come and rest</h1>
+        <p class="reveal reveal-d2 mt-5 mx-auto text-lg" style="color:var(--muted-inv);max-width:40rem" data-i18n="ct.hero.sub">Reserve a session or ask us anything — we usually reply the same day.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTENT ============ -->
+    <section class="section wrap">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+
+        <!-- info + form -->
+        <div class="reveal">
+          <!-- info blocks -->
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div>
+              <h2 class="text-xs uppercase tracking-[0.22em]" style="color:var(--clay)" data-i18n="ct.location">Location</h2>
+              <p class="mt-2" style="color:var(--text-soft)" data-i18n="footer.location">Písac, Sacred Valley, Cusco — Peru</p>
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-[0.22em]" style="color:var(--clay)" data-i18n="ct.hours">Hours</h2>
+              <p class="mt-2" style="color:var(--text-soft)" data-i18n="ct.hours.val">Mon – Sat · 9:00 – 19:00</p>
+            </div>
+            <div>
+              <h2 class="text-xs uppercase tracking-[0.22em]" style="color:var(--clay)" data-i18n="ct.whatsapp">WhatsApp</h2>
+              <a href="https://wa.me/XXXXXXXXX" target="_blank" rel="noopener" class="mt-2 inline-block underline" style="color:var(--text-soft)">+51 9XX XXX XXX</a>
+            </div>
+          </div>
+
+          <!-- form -->
+          <form class="mt-10" action="#" method="post" novalidate>
+            <h2 style="font-size:1.5rem" data-i18n="ct.form.title">Send a message</h2>
+            <div class="mt-6 space-y-4">
+              <div>
+                <label for="f-name" class="block text-sm mb-1.5 font-medium" data-i18n="ct.form.name">Name</label>
+                <input id="f-name" name="name" type="text" required autocomplete="name" class="field" data-i18n-ph="ct.form.name.ph" placeholder="Your name" />
+              </div>
+              <div>
+                <label for="f-email" class="block text-sm mb-1.5 font-medium" data-i18n="ct.form.email">Email</label>
+                <input id="f-email" name="email" type="email" required autocomplete="email" class="field" data-i18n-ph="ct.form.email.ph" placeholder="you@email.com" />
+              </div>
+              <div>
+                <label for="f-msg" class="block text-sm mb-1.5 font-medium" data-i18n="ct.form.msg">Message</label>
+                <textarea id="f-msg" name="message" rows="4" required class="field" data-i18n-ph="ct.form.msg.ph" placeholder="Tell us what you're looking for…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" data-i18n="ct.form.submit">Send message</button>
+            </div>
+          </form>
+
+          <a href="https://wa.me/XXXXXXXXX" target="_blank" rel="noopener" class="btn btn-ghost mt-6" data-i18n="ct.whatsapp.cta">Message on WhatsApp</a>
+        </div>
+
+        <!-- map -->
+        <div class="reveal reveal-d1">
+          <h2 class="text-xs uppercase tracking-[0.22em] mb-4" style="color:var(--clay)" data-i18n="ct.map.title">Find us</h2>
+          <div class="card" style="box-shadow:var(--shadow-lg);height:clamp(360px,60vh,560px)">
+            <iframe
+              title="Map of Písac, Sacred Valley"
+              src="https://www.google.com/maps?q=Pisac,Cusco,Peru&output=embed"
+              style="border:0;width:100%;height:100%"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
