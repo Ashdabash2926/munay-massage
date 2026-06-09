@@ -176,6 +176,40 @@
     }
   }
 
+  /* ---------- hero: image crossfade ---------- */
+  const heroImgs = document.querySelectorAll(".hero-media .hero-img");
+  if (heroImgs.length > 1 && !prefersReduced) {
+    let hi = 0;
+    setInterval(() => {
+      heroImgs[hi].classList.remove("is-active");
+      hi = (hi + 1) % heroImgs.length;
+      heroImgs[hi].classList.add("is-active");
+    }, 6500);
+  }
+
+  /* ---------- hero: pointer-reactive depth (desktop only) ---------- */
+  const hero = document.querySelector(".hero");
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  if (hero && finePointer && !prefersReduced) {
+    const inner = hero.querySelector(".hero-media-inner");
+    const motes = hero.querySelector(".hero-motes");
+    let raf = false, px = 0, py = 0;
+    const apply = () => {
+      hero.style.setProperty("--px", px.toFixed(3));
+      hero.style.setProperty("--py", py.toFixed(3));
+      if (inner) inner.style.transform = `scale(1.08) translate(${(px * -14).toFixed(1)}px, ${(py * -10).toFixed(1)}px)`;
+      if (motes) motes.style.transform = `translate(${(px * 22).toFixed(1)}px, ${(py * 16).toFixed(1)}px)`;
+      raf = false;
+    };
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1 .. 1
+      py = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) { window.requestAnimationFrame(apply); raf = true; }
+    });
+    hero.addEventListener("pointerleave", () => { px = 0; py = 0; window.requestAnimationFrame(apply); });
+  }
+
   /* ---------- apply saved language (after chrome + content exist) ---------- */
   window.MunayI18N.initLang();
 })();

@@ -23,13 +23,20 @@
 
     <!-- ============ HERO ============ -->
     <section class="hero grain" style="min-height:100svh;display:grid;align-items:center">
-      <!-- background layer: continuous Ken Burns zoom + scroll parallax -->
+      <!-- background: scroll parallax (.hero-media) > pointer parallax (.hero-media-inner) > crossfading Ken Burns images -->
       <div class="hero-media">
-        <img class="hero-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=78" alt="Hands giving a calm massage with warm stones" />
+        <div class="hero-media-inner">
+          <img class="hero-img is-active" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=78" alt="Hands giving a calm massage with warm stones" />
+          <img class="hero-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=2000&q=78" alt="" aria-hidden="true" />
+          <img class="hero-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=2000&q=78" alt="" aria-hidden="true" />
+        </div>
       </div>
       <div class="hero-veil" aria-hidden="true"></div>
 
-      <!-- ambient drifting light motes -->
+      <!-- palo-santo smoke wisp -->
+      <div class="hero-smoke hidden sm:block" aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <!-- ambient drifting light motes (also pointer-parallax) -->
       <div class="hero-motes" aria-hidden="true">
         <span class="mote" style="left:12%;bottom:16%;animation-delay:0s"></span>
         <span class="mote" style="left:27%;bottom:8%;animation-delay:2.4s"></span>
@@ -39,17 +46,21 @@
         <span class="mote" style="left:55%;bottom:42%;animation-delay:5.6s"></span>
       </div>
 
-      <!-- content layer: staggered blur-up entrance + scroll parallax -->
+      <!-- content layer: staggered entrance + scroll parallax -->
       <div class="hero-content wrap relative" style="z-index:3;padding-top:var(--nav-h)">
         <div class="max-w-2xl">
-          <p class="hero-in d1 eyebrow" style="color:var(--gold-soft)" data-i18n="home.hero.kicker">Your escape · Valle Sagrado</p>
-          <h1 class="hero-in d2 mt-5" style="color:var(--text-inv);font-size:clamp(3rem,8.5vw,6.4rem)">
-            <span data-i18n="home.hero.t1">Come home to</span>
-            <span class="italic-accent" style="color:var(--gold-soft)" data-i18n="home.hero.t2">yourself</span>
+          <p class="hero-eyebrow eyebrow" style="color:var(--gold-soft)" data-i18n="home.hero.kicker">Your escape · Valle Sagrado</p>
+          <h1 class="hero-title mt-5" style="color:var(--text-inv);font-size:clamp(3rem,8.5vw,6.4rem)">
+            <span class="line"><span class="line-inner" style="animation-delay:.42s" data-i18n="home.hero.t1">Come home to</span></span>
+            <span class="line"><span class="line-inner shimmer italic-accent" style="animation-delay:.56s" data-i18n="home.hero.t2">yourself</span></span>
           </h1>
+          <svg class="hero-flourish" width="170" height="12" viewBox="0 0 170 12" fill="none" aria-hidden="true">
+            <path d="M2 6 H120" stroke="var(--gold-soft)" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="134" cy="6" r="3.2" fill="var(--gold-soft)"/>
+          </svg>
           <p class="hero-in d3 mt-6 text-lg" style="color:var(--muted-inv);max-width:34rem" data-i18n="home.hero.sub">Holistic massage in the heart of Písac — where Andean stillness meets the body's own rhythm.</p>
           <div class="hero-in d4 mt-9 flex flex-wrap gap-3">
-            <a href="contact.html" class="btn btn-primary" data-i18n="cta.book">Book Now</a>
+            <a href="contact.html" class="btn btn-primary cta-glow" data-i18n="cta.book">Book Now</a>
             <a href="treatments.html" class="btn btn-on-dark" data-i18n="home.hero.cta2">Explore treatments</a>
           </div>
         </div>

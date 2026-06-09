@@ -195,55 +195,78 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
    HERO (home) — layered parallax + ambient motion
    ============================================================ */
 .hero { position: relative; overflow: hidden; }
-.hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; will-change: transform; }
-.hero-img {
-  width: 100%; height: 100%; object-fit: cover;
-  transform: scale(1.06);
-  animation: hero-kenburns 28s ease-in-out infinite alternate;  /* always-on slow zoom */
-  will-change: transform;
-}
+
+/* --- background: scroll parallax > pointer parallax > crossfading Ken Burns images --- */
+.hero-media { position: absolute; top: -12%; left: 0; right: 0; height: 124%;
+  z-index: 0; overflow: hidden; will-change: transform; }
+.hero-media-inner { position: absolute; inset: 0; transform: scale(1.08);
+  transition: transform .5s var(--ease); will-change: transform; }  /* pointer parallax target */
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity 1.6s var(--ease); will-change: opacity; }
+.hero-img.is-active { opacity: 1; animation: hero-kenburns 8s ease-out both; }
 @keyframes hero-kenburns {
-  from { transform: scale(1.06) translate3d(0, 0, 0); }
-  to   { transform: scale(1.18) translate3d(-2.5%, -2%, 0); }
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.15) translate3d(-2.5%, -2%, 0); }
 }
 .hero-veil { position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(105deg, rgba(42,29,22,.82) 0%, rgba(42,29,22,.5) 42%, rgba(42,29,22,.12) 100%); }
-.hero-veil::after { content: ""; position: absolute; inset: 0;
-  background: radial-gradient(120% 80% at 18% 32%, rgba(205,160,79,.18), transparent 56%); }
+.hero-veil::after { content: ""; position: absolute; inset: 0;  /* warm glow that tracks the pointer */
+  background: radial-gradient(120% 80% at calc(18% + var(--px, 0) * 5%) calc(32% + var(--py, 0) * 5%), rgba(205,160,79,.20), transparent 56%); }
 .hero-scroll { position: absolute; bottom: 1.6rem; left: 0; right: 0; text-align: center; }
 
 /* scroll-linked parallax — background, content and cue move at different rates */
 @supports (animation-timeline: scroll()) {
-  .hero-media {
-    animation: hero-bg-par linear both;
-    animation-timeline: scroll(root); animation-range: 0 110vh;
-  }
-  @keyframes hero-bg-par { to { transform: translateY(16%); } }
-
-  .hero-content {
-    animation: hero-content-par linear both;
-    animation-timeline: scroll(root); animation-range: 0 80vh;
-  }
+  .hero-media { animation: hero-bg-par linear both; animation-timeline: scroll(root); animation-range: 0 110vh; }
+  @keyframes hero-bg-par { to { transform: translateY(13%); } }
+  .hero-content { animation: hero-content-par linear both; animation-timeline: scroll(root); animation-range: 0 80vh; }
   @keyframes hero-content-par { to { transform: translateY(-58px); opacity: .12; } }
-
-  .hero-scroll {
-    animation: hero-scroll-fade linear both;
-    animation-timeline: scroll(root); animation-range: 0 26vh;
-  }
+  .hero-scroll { animation: hero-scroll-fade linear both; animation-timeline: scroll(root); animation-range: 0 26vh; }
   @keyframes hero-scroll-fade { to { opacity: 0; } }
 }
 
-/* on-load cinematic entrance (load-based, no JS needed) */
-.hero-in { opacity: 0; transform: translateY(28px); filter: blur(8px);
-  animation: hero-in 1.05s var(--ease) both; }
+/* on-load cinematic entrance (load-based) */
+.hero-in { opacity: 0; transform: translateY(28px); filter: blur(8px); animation: hero-in 1.05s var(--ease) both; }
 @keyframes hero-in { to { opacity: 1; transform: none; filter: blur(0); } }
 .hero-in.d1 { animation-delay: .15s; }
 .hero-in.d2 { animation-delay: .30s; }
 .hero-in.d3 { animation-delay: .48s; }
 .hero-in.d4 { animation-delay: .64s; }
 
-/* ambient drifting light motes */
-.hero-motes { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+/* eyebrow: blur-up + (non-Farsi) letter-spacing tracking-in */
+.hero-eyebrow { animation: hero-in 1.05s var(--ease) .15s both; }
+html:not([lang="fa"]) .hero-eyebrow { animation: hero-in 1.05s var(--ease) .15s both, track-in 1.1s var(--ease) .15s both; }
+@keyframes track-in { from { letter-spacing: .62em; } to { letter-spacing: .32em; } }
+
+/* headline: line-by-line mask wipe */
+.hero-title .line { display: block; overflow: hidden; padding-block: .08em; }
+.hero-title .line-inner { display: inline-block; transform: translateY(115%); animation: line-rise 1s var(--ease) both; }
+@keyframes line-rise { to { transform: translateY(0); } }
+
+/* gold shimmer sweeping across the italic accent word */
+.shimmer { color: transparent; -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(100deg, var(--gold-soft) 0%, var(--gold-soft) 38%, #fff6e6 48%, var(--gold-soft) 58%, var(--gold-soft) 100%);
+  background-size: 280% 100%; background-position: 200% 0;
+  -webkit-background-clip: text; background-clip: text;
+  animation: line-rise 1s var(--ease) both, shimmer 6s ease-in-out 1.6s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 55%, 100% { background-position: -120% 0; } }
+
+/* draw-in flourish under the headline */
+.hero-flourish { display: block; margin-top: 1.1rem; overflow: visible; }
+.hero-flourish path { stroke-dasharray: 124; stroke-dashoffset: 124; animation: draw 1.1s var(--ease) .9s forwards; }
+.hero-flourish circle { opacity: 0; animation: dot-in .5s var(--ease) 1.7s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes dot-in { to { opacity: 1; } }
+
+/* breathing glow ring on the primary CTA */
+.cta-glow { animation: cta-glow 3.2s ease-in-out 1.6s infinite; }
+@keyframes cta-glow {
+  0%, 100% { box-shadow: var(--shadow), 0 0 0 0 rgba(205,160,79,.0); }
+  50%      { box-shadow: var(--shadow), 0 0 0 7px rgba(205,160,79,.16); }
+}
+
+/* ambient drifting light motes (container is pointer-parallax) */
+.hero-motes { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  transition: transform .5s var(--ease); will-change: transform; }
 .mote { position: absolute; width: 7px; height: 7px; border-radius: 50%;
   background: radial-gradient(circle, var(--gold-soft) 0%, rgba(230,201,138,.4) 40%, transparent 72%);
   opacity: 0; animation: mote-drift 11s ease-in-out infinite; }
@@ -252,6 +275,21 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
   15%  { opacity: .8; }
   85%  { opacity: .5; }
   100% { opacity: 0; transform: translateY(-160px) scale(1.15); }
+}
+
+/* palo-santo smoke wisp */
+.hero-smoke { position: absolute; bottom: 0; left: 7%; width: 130px; height: 280px; z-index: 2; pointer-events: none; }
+.hero-smoke span { position: absolute; bottom: 0; left: 50%; width: 70px; height: 70px; margin-left: -35px;
+  border-radius: 50%; filter: blur(14px);
+  background: radial-gradient(circle, rgba(247,240,230,.42) 0%, rgba(230,201,138,.18) 45%, transparent 72%);
+  opacity: 0; animation: smoke-rise 10s ease-in infinite; }
+.hero-smoke span:nth-child(2) { animation-delay: 3.3s; left: 58%; }
+.hero-smoke span:nth-child(3) { animation-delay: 6.6s; left: 44%; }
+@keyframes smoke-rise {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) scale(.5); }
+  18%  { opacity: .55; }
+  70%  { opacity: .35; }
+  100% { opacity: 0; transform: translateY(-220px) translateX(26px) scale(1.7); }
 }
 
 /* hero "breathing" float — the munay heart-energy beat */
@@ -297,8 +335,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
   .parallax__img { animation: none !important; transform: none !important; }
   .float-slow { animation: none !important; }
   /* hero */
-  .hero-img { animation: none !important; transform: scale(1.04) !important; }
-  .hero-media, .hero-content, .hero-scroll { animation: none !important; transform: none !important; opacity: 1 !important; }
-  .hero-in { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
-  .mote { display: none !important; }
+  .hero-img { animation: none !important; transform: scale(1.02) !important; }
+  .hero-media, .hero-media-inner, .hero-content, .hero-scroll, .hero-motes {
+    animation: none !important; transform: none !important; opacity: 1 !important; }
+  .hero-in, .hero-eyebrow { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; letter-spacing: .32em; }
+  .hero-title .line-inner { transform: none !important; animation: none !important; }
+  .shimmer { color: var(--gold-soft) !important; -webkit-text-fill-color: var(--gold-soft); animation: none !important; }
+  .hero-flourish path { stroke-dashoffset: 0 !important; animation: none !important; }
+  .hero-flourish circle { opacity: 1 !important; animation: none !important; }
+  .cta-glow { animation: none !important; }
+  .mote, .hero-smoke { display: none !important; }
 }
