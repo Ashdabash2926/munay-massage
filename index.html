@@ -22,24 +22,40 @@
   <main id="main">
 
     <!-- ============ HERO ============ -->
-    <section class="parallax grain" style="min-height:100svh;display:grid;align-items:center">
-      <img class="parallax__img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=78" alt="Hands giving a calm massage with warm stones" />
-      <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;background:linear-gradient(105deg,rgba(42,29,22,.82) 0%,rgba(42,29,22,.5) 42%,rgba(42,29,22,.15) 100%)"></div>
-      <div class="wrap relative" style="z-index:3;padding-top:var(--nav-h)">
+    <section class="hero grain" style="min-height:100svh;display:grid;align-items:center">
+      <!-- background layer: continuous Ken Burns zoom + scroll parallax -->
+      <div class="hero-media">
+        <img class="hero-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=78" alt="Hands giving a calm massage with warm stones" />
+      </div>
+      <div class="hero-veil" aria-hidden="true"></div>
+
+      <!-- ambient drifting light motes -->
+      <div class="hero-motes" aria-hidden="true">
+        <span class="mote" style="left:12%;bottom:16%;animation-delay:0s"></span>
+        <span class="mote" style="left:27%;bottom:8%;animation-delay:2.4s"></span>
+        <span class="mote" style="left:45%;bottom:26%;animation-delay:4.2s"></span>
+        <span class="mote" style="left:64%;bottom:12%;animation-delay:1.3s"></span>
+        <span class="mote" style="left:82%;bottom:30%;animation-delay:3.3s"></span>
+        <span class="mote" style="left:55%;bottom:42%;animation-delay:5.6s"></span>
+      </div>
+
+      <!-- content layer: staggered blur-up entrance + scroll parallax -->
+      <div class="hero-content wrap relative" style="z-index:3;padding-top:var(--nav-h)">
         <div class="max-w-2xl">
-          <p class="eyebrow reveal" style="color:var(--gold-soft)" data-i18n="home.hero.kicker">Your escape · Valle Sagrado</p>
-          <h1 class="reveal reveal-d1 mt-5" style="color:var(--text-inv);font-size:clamp(3rem,8.5vw,6.4rem)">
+          <p class="hero-in d1 eyebrow" style="color:var(--gold-soft)" data-i18n="home.hero.kicker">Your escape · Valle Sagrado</p>
+          <h1 class="hero-in d2 mt-5" style="color:var(--text-inv);font-size:clamp(3rem,8.5vw,6.4rem)">
             <span data-i18n="home.hero.t1">Come home to</span>
             <span class="italic-accent" style="color:var(--gold-soft)" data-i18n="home.hero.t2">yourself</span>
           </h1>
-          <p class="reveal reveal-d2 mt-6 text-lg" style="color:var(--muted-inv);max-width:34rem" data-i18n="home.hero.sub">Holistic massage in the heart of Písac — where Andean stillness meets the body's own rhythm.</p>
-          <div class="reveal reveal-d3 mt-9 flex flex-wrap gap-3">
+          <p class="hero-in d3 mt-6 text-lg" style="color:var(--muted-inv);max-width:34rem" data-i18n="home.hero.sub">Holistic massage in the heart of Písac — where Andean stillness meets the body's own rhythm.</p>
+          <div class="hero-in d4 mt-9 flex flex-wrap gap-3">
             <a href="contact.html" class="btn btn-primary" data-i18n="cta.book">Book Now</a>
             <a href="treatments.html" class="btn btn-on-dark" data-i18n="home.hero.cta2">Explore treatments</a>
           </div>
         </div>
       </div>
-      <div class="wrap relative hidden sm:block" style="z-index:3;position:absolute;bottom:1.6rem;left:0;right:0">
+
+      <div class="hero-scroll hidden sm:block" style="z-index:3">
         <span class="float-slow inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em]" style="color:var(--muted-inv)">
           <span data-i18n="home.hero.scroll">Scroll</span>
           <svg width="14" height="22" viewBox="0 0 14 22" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="1" width="12" height="20" rx="6"/><line x1="7" y1="5" x2="7" y2="9"/></svg>

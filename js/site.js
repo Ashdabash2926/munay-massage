@@ -142,18 +142,29 @@
   }
 
   /* ---------- parallax fallback ---------- */
-  const hasScrollTimeline = window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
+  const hasScrollTimeline = window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()");
   if (!hasScrollTimeline && !prefersReduced) {
     const imgs = Array.from(document.querySelectorAll(".parallax__img"));
-    if (imgs.length) {
+    const heroMedia = document.querySelector(".hero-media");
+    const heroContent = document.querySelector(".hero-content");
+    const heroScroll = document.querySelector(".hero-scroll");
+    if (imgs.length || heroMedia) {
       let ticking = false;
       const update = () => {
         const vh = window.innerHeight;
+        const y = window.scrollY;
         imgs.forEach(img => {
           const r = img.parentElement.getBoundingClientRect();
           const progress = (r.top + r.height / 2 - vh / 2) / vh; // -1..1 ish
           img.style.transform = `translateY(${(-progress * 9).toFixed(2)}%)`;
         });
+        // hero: background, content and cue move at different rates
+        if (heroMedia) heroMedia.style.transform = `translateY(${(y * 0.18).toFixed(1)}px)`;
+        if (heroContent) {
+          heroContent.style.transform = `translateY(${(y * -0.12).toFixed(1)}px)`;
+          heroContent.style.opacity = String(Math.max(0, 1 - y / 620));
+        }
+        if (heroScroll) heroScroll.style.opacity = String(Math.max(0, 1 - y / 200));
         ticking = false;
       };
       const onMove = () => {

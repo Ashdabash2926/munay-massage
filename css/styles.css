@@ -191,6 +191,69 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
   }
 }
 
+/* ============================================================
+   HERO (home) — layered parallax + ambient motion
+   ============================================================ */
+.hero { position: relative; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; will-change: transform; }
+.hero-img {
+  width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.06);
+  animation: hero-kenburns 28s ease-in-out infinite alternate;  /* always-on slow zoom */
+  will-change: transform;
+}
+@keyframes hero-kenburns {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to   { transform: scale(1.18) translate3d(-2.5%, -2%, 0); }
+}
+.hero-veil { position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(105deg, rgba(42,29,22,.82) 0%, rgba(42,29,22,.5) 42%, rgba(42,29,22,.12) 100%); }
+.hero-veil::after { content: ""; position: absolute; inset: 0;
+  background: radial-gradient(120% 80% at 18% 32%, rgba(205,160,79,.18), transparent 56%); }
+.hero-scroll { position: absolute; bottom: 1.6rem; left: 0; right: 0; text-align: center; }
+
+/* scroll-linked parallax — background, content and cue move at different rates */
+@supports (animation-timeline: scroll()) {
+  .hero-media {
+    animation: hero-bg-par linear both;
+    animation-timeline: scroll(root); animation-range: 0 110vh;
+  }
+  @keyframes hero-bg-par { to { transform: translateY(16%); } }
+
+  .hero-content {
+    animation: hero-content-par linear both;
+    animation-timeline: scroll(root); animation-range: 0 80vh;
+  }
+  @keyframes hero-content-par { to { transform: translateY(-58px); opacity: .12; } }
+
+  .hero-scroll {
+    animation: hero-scroll-fade linear both;
+    animation-timeline: scroll(root); animation-range: 0 26vh;
+  }
+  @keyframes hero-scroll-fade { to { opacity: 0; } }
+}
+
+/* on-load cinematic entrance (load-based, no JS needed) */
+.hero-in { opacity: 0; transform: translateY(28px); filter: blur(8px);
+  animation: hero-in 1.05s var(--ease) both; }
+@keyframes hero-in { to { opacity: 1; transform: none; filter: blur(0); } }
+.hero-in.d1 { animation-delay: .15s; }
+.hero-in.d2 { animation-delay: .30s; }
+.hero-in.d3 { animation-delay: .48s; }
+.hero-in.d4 { animation-delay: .64s; }
+
+/* ambient drifting light motes */
+.hero-motes { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.mote { position: absolute; width: 7px; height: 7px; border-radius: 50%;
+  background: radial-gradient(circle, var(--gold-soft) 0%, rgba(230,201,138,.4) 40%, transparent 72%);
+  opacity: 0; animation: mote-drift 11s ease-in-out infinite; }
+@keyframes mote-drift {
+  0%   { opacity: 0; transform: translateY(30px) scale(.7); }
+  15%  { opacity: .8; }
+  85%  { opacity: .5; }
+  100% { opacity: 0; transform: translateY(-160px) scale(1.15); }
+}
+
 /* hero "breathing" float — the munay heart-energy beat */
 .float-slow { animation: float-slow 9s ease-in-out infinite; }
 @keyframes float-slow {
@@ -233,4 +296,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--ring); outline-
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .parallax__img { animation: none !important; transform: none !important; }
   .float-slow { animation: none !important; }
+  /* hero */
+  .hero-img { animation: none !important; transform: scale(1.04) !important; }
+  .hero-media, .hero-content, .hero-scroll { animation: none !important; transform: none !important; opacity: 1 !important; }
+  .hero-in { opacity: 1 !important; transform: none !important; filter: none !important; animation: none !important; }
+  .mote { display: none !important; }
 }
