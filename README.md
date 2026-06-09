@@ -1,5 +1,7 @@
 # Munay · Holistic Massage — Sacred Valley
 
+**Live:** https://ashdabash2926.github.io/munay-massage/
+
 A warm, calming, trilingual (English / Español / فارسی) four-page website for a holistic
 massage practice in Písac, Sacred Valley (Cusco), Peru. Flat static site — no build step.
 
